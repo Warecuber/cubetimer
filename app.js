@@ -57,18 +57,85 @@ var scrambleController = (() => {
     $(".scramble").html(scrambleStr);
   }
 
-  generateScramble();
+  return {
+    scramble: () => {
+      generateScramble();
+    },
+  };
 })();
-
 
 /////////////////////////////////////////
 //////////// Code for Timer ////////////
 ///////////////////////////////////////
 
-
 var timer = (() => {
   let running = false;
+  var color = "white";
 
-  
+  function init() {
+    window.addEventListener("keyup", (e) => {
+      if (e.keyCode === 32) {
+        if (!running && color === "green") {
+          color = "white";
+          console.log("started");
+          running = true;
+          $(".time").css({
+            color: "rgb(214, 214, 214)",
+          });
+          var start = new Date().getTime(),
+            elapsed = "0.0";
+          if (running) {
+            window.setInterval(function () {
+              var time = new Date().getTime() - start;
+              elapsed = Math.floor(time / 10) / 100;
+              if (Math.round(elapsed) == elapsed) {
+                elapsed += ".0";
+              }
+              document.querySelector(".time").innerHTML = elapsed;
+            }, 10);
+          }
+        } else if (color !== "green") {
+          $(".time").css({
+            color: "rgb(214, 214, 214)",
+          });
+        }
+      }
+    });
+    window.addEventListener("keydown", (e) => {
+      if (running) {
+        console.log("stopped");
+        setTimeout(() => {
+          running = false;
+        }, 500);
+      } else {
+        if (e.keyCode === 32) {
+          console.log(color);
 
-})();
+          if (color === "white") {
+            $(".time").css({
+              color: "rgb(252, 164, 0)",
+            });
+            color = "orange";
+          }
+          setTimeout(() => {
+            if (color === "orange") {
+              $(".time").css({
+                color: "rgb(8, 187, 8)",
+              });
+              color = "green";
+            }
+          }, 1000);
+        }
+      }
+    });
+    scrambleController.scramble();
+  }
+
+  return {
+    init: () => {
+      init();
+    },
+  };
+})(scrambleController);
+
+timer.init();

@@ -38,7 +38,7 @@ body {
   margin-bottom: 3rem;
 }
 .time {
-  font-size: 6rem;
+  font-size: 6rem !important;
   margin: 0px;
   height: auto;
 }
@@ -80,10 +80,9 @@ body {
   transition: all 0.1s ease;
 }
 .timerHistoryItem:hover {
-  letter-spacing: 1px;
-  font-size: 1.6rem;
-  font-weight: 900;
+  color:white;
   cursor: pointer;
+  text-decoration: underline;
 }
 .scramble{
   font-size: 1.4rem;
