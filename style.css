@@ -1,0 +1,90 @@
+html,
+body {
+  padding: 0px;
+  margin: 0px;
+  height: 100vh;
+  background-color: rgb(20, 20, 20);
+  color: rgb(214, 214, 214);
+  font-family: Roboto;
+}
+*::selection{
+  background-color: transparent;
+}
+.header {
+  display: flex;
+  background-color: #595478;
+  width: 100%;
+  align-items: center;
+  height: auto;
+  border-bottom: 1px solid black;
+  justify-content: space-between;
+}
+.header p {
+  display: flex;
+  justify-content: start;
+  color: white;
+  padding: 1rem;
+  font-size: 2rem;
+  align-items: center;
+  margin: 0px;
+}
+.body {
+  display: flex;
+  flex-direction: column;
+  /* height: calc(100vh - 70px); */
+}
+.timer {
+  margin-top: 3rem;
+  margin-bottom: 3rem;
+}
+.time {
+  font-size: 6rem;
+  margin: 0px;
+  height: auto;
+}
+.center {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+.instructionContainer {
+  width: auto;
+}
+.scrambleHistory {
+  display: flex;
+  align-content: flex-end;
+  min-height: 60px;
+}
+.scrambleHistoryContainer {
+  background-color: rgb(110, 9, 9);
+  height: 100%;
+  width: 100%;
+  margin-left: 15%;
+  margin-right: 15%;
+  display: flex;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  font-size: 1.5rem;
+  justify-content: space-evenly;
+  flex-flow: wrap;
+}
+.hidden {
+  display: none !important;
+}
+.clear {
+  color: transparent !important;
+}
+.timerHistoryItem {
+  margin: 1rem;
+  font-weight: 500;
+  transition: all 0.1s ease;
+}
+.timerHistoryItem:hover {
+  letter-spacing: 1px;
+  font-size: 1.6rem;
+  font-weight: 900;
+  cursor: pointer;
+}
+.scramble{
+  font-size: 1.4rem;
+}
