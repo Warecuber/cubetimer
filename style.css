@@ -3,16 +3,16 @@ body {
   padding: 0px;
   margin: 0px;
   height: 100vh;
-  background-color: rgb(20, 20, 20);
-  color: rgb(214, 214, 214);
+  background-color: #162521;
+  color: #C0E0DE;
   font-family: Roboto;
 }
-*::selection{
+*::selection {
   background-color: transparent;
 }
 .header {
   display: flex;
-  background-color: #595478;
+  background-color: #4F7CAC;
   width: 100%;
   align-items: center;
   height: auto;
@@ -56,7 +56,7 @@ body {
   min-height: 60px;
 }
 .scrambleHistoryContainer {
-  background-color: rgb(110, 9, 9);
+  background-color: #C0E0DE;
   height: 100%;
   width: 100%;
   margin-left: 15%;
@@ -75,15 +75,91 @@ body {
   color: transparent !important;
 }
 .timerHistoryItem {
-  margin: 1rem;
+  margin: 1rem 3rem;
+  color:#162521;
   font-weight: 500;
   transition: all 0.1s ease;
 }
 .timerHistoryItem:hover {
-  color:white;
   cursor: pointer;
   text-decoration: underline;
 }
-.scramble{
+.scramble {
   font-size: 1.4rem;
+}
+.modalBorder {
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  align-content: stretch;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 40%;
+  background-color: gray;
+  border-radius: 5px;
+  border: 2px solid #4F7CAC;
+}
+.modalContainer {
+  position: fixed;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+.modaltitle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: 1.2rem;
+  min-height: 2rem;
+  background-color: #3C474B;
+  border-bottom: 1px solid #162521;
+  margin: 0px;
+  padding: 1rem;
+}
+.modalBody {
+  display: flex;
+  color: white;
+  flex-direction: column;
+  justify-items: center;
+  background-color: #4F7CAC;
+}
+.modalcontent {
+  margin: 0;
+  display: inline-block;
+  padding: 1rem !important;
+}
+.buttonContainer {
+  display: inline-flex;
+  align-content: space-between;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+.inlineButton {
+  cursor: pointer;
+  background-color: transparent;
+  border: 2px solid black;
+  margin: 0 1rem;
+  padding: 0.5rem 1rem;
+  outline: none;
+  border-radius: 5px;
+  color: white;
+  transition: 0.1s all ease-in-out;
+}
+.modaltitleContent {
+  margin: 0;
+}
+.removeTime {
+  background-color: #3C474B;
+  color:white;
+}
+.removeTime:hover{
+  background-color: transparent;
+}
+.cancel:hover{
+  background-color: #3C474B;
 }

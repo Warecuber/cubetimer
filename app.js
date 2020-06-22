@@ -1,3 +1,5 @@
+$(".modalContainer").hide();
+
 /////////////////////////////////////////
 //////// Code for scramble Algs ////////
 ///////////////////////////////////////
@@ -64,16 +66,20 @@ var scrambleController = (() => {
   };
 })();
 
-/////////////////////////////////////////
-//////////// Code for Timer ////////////
-///////////////////////////////////////
+/////////////////////////////////////////////
+///////////// Code for Timer ///////////////
+///////////////////////////////////////////
+//////////////////////////////////////////
+// Timer code from VerkkoNet on Youtube//
+////////////////////////////////////////
 
 var timer = (() => {
   var ms = 0,
     s = 0,
     m = 0,
     running = false,
-    color = "white";
+    color = "white",
+    times;
   var timer;
   var stopwatch = document.querySelector(".time");
 
@@ -88,11 +94,13 @@ var timer = (() => {
 
   function run() {
     if (m <= 0) {
-      stopwatch.textContent = `${s < 10 ? `0${s}` : s}:${
+      stopwatch.textContent = `${s < 10 ? `0${s}` : s}.${
         ms < 10 ? `0${s}` : ms
       }`;
     } else {
-      stopwatch.textContent = `${m}:${s}:${ms}`;
+      stopwatch.textContent = `${m < 10 ? `0${m}` : m}.${
+        s < 10 ? `0${s}` : s
+      }.${ms < 10 ? `0${s}` : ms}`;
     }
 
     ms++;
@@ -110,9 +118,72 @@ var timer = (() => {
     clearInterval(timer);
     timer = false;
     scrambleController.scramble();
+    addTime();
   }
 
-  function recordTime() {}
+  function loadTimes() {
+    if (localStorage.getItem("savedTimes")) {
+      times = JSON.parse(localStorage.getItem("savedTimes"));
+    } else {
+      times = [];
+    }
+    addTimesToDOM();
+  }
+
+  // loop to add initial times to DOM //
+  function addTimesToDOM() {
+    times.forEach((element) => {
+      addTimeToDOM(element);
+    });
+  }
+
+  function addTimeToDOM(time) {
+    var history = document.querySelector(".scrambleHistoryContainer");
+    var id = times.indexOf(time);
+    var el = document.createElement("p");
+    var splitTime = time.split(".");
+    el.classList.add("timerHistoryItem");
+    el.id = `timeId-${id}`;
+    $(el).attr("onclick", "timer.remove(this)");
+    if (splitTime[0] === "0") {
+      el.innerHTML = `${splitTime[1]}.${splitTime[2]}`;
+    } else {
+      el.innerHTML = `${splitTime[0]}.${splitTime[1]}.${splitTime[2]}`;
+    }
+    history.insertAdjacentElement("beforeend", el);
+  }
+
+  function confirmationModal(that) {
+    newId = that.id.replace("timeId-", "");
+    removeValue = document.getElementById(that.id).innerText;
+    $(".modaltitleContent").html("Are you sure you want to delete the time?");
+    $(".modalcontent").html(
+      `This will permanenetly delete your time of ${removeValue} from the record.`
+    );
+    $(".removeTime").attr("onclick", "timer.confirm(this)");
+    document.querySelector(".removeTime").id = `remove-${newId}`;
+    $(".modalContainer").fadeIn(200);
+    $(".cancel").on("click", () => {
+      $("modalContainer").fadeOut(200);
+    });
+    $(".modalContainer").on("click", () => {
+      $(".modalContainer").fadeOut(200);
+    });
+  }
+
+  function removeTime(that) {
+    removeId = that.id.replace("remove-", "");
+    times.splice(removeId, 1);
+    localStorage.setItem("savedTimes", JSON.stringify(times));
+    document.getElementById(`timeId-${removeId}`).remove();
+  }
+
+  function addTime() {
+    var lastTime = `${m}.${s}.${ms}`;
+    times.push(lastTime);
+    localStorage.setItem("savedTimes", JSON.stringify(times));
+    addTimeToDOM(lastTime);
+  }
 
   function init() {
     window.addEventListener("keyup", (e) => {
@@ -139,7 +210,6 @@ var timer = (() => {
         running = false;
       } else {
         if (e.keyCode === 32) {
-          console.log(color);
           if (color === "white") {
             $(".time").css({
               color: "rgb(252, 164, 0)",
@@ -153,78 +223,24 @@ var timer = (() => {
               });
               color = "green";
             }
-          }, 1000);
+          }, 500);
         }
       }
     });
+
     scrambleController.scramble();
+    loadTimes();
   }
-
-  // let running = false;
-  // var color = "white";
-
-  // function init() {
-  //   window.addEventListener("keyup", (e) => {
-  //     if (e.keyCode === 32) {
-  //       if (!running && color === "green") {
-  //         color = "white";
-  //         console.log("started");
-  //         running = true;
-  //         $(".time").css({
-  //           color: "rgb(214, 214, 214)",
-  //         });
-  //         var start = new Date().getTime(),
-  //           elapsed = "0.0";
-  //         if (running) {
-  //           window.setInterval(function () {
-  //             var time = new Date().getTime() - start;
-  //             elapsed = Math.floor(time / 10) / 100;
-  //             if (Math.round(elapsed) == elapsed) {
-  //               elapsed += ".0";
-  //             }
-  //             document.querySelector(".time").innerHTML = elapsed;
-  //           }, 10);
-  //         }
-  //       } else if (color !== "green") {
-  //         $(".time").css({
-  //           color: "rgb(214, 214, 214)",
-  //         });
-  //       }
-  //     }
-  //   });
-  //   window.addEventListener("keydown", (e) => {
-  //     if (running) {
-  //       console.log("stopped");
-  //       setTimeout(() => {
-  //         running = false;
-  //       }, 500);
-  //     } else {
-  //       if (e.keyCode === 32) {
-  //         console.log(color);
-
-  //         if (color === "white") {
-  //           $(".time").css({
-  //             color: "rgb(252, 164, 0)",
-  //           });
-  //           color = "orange";
-  //         }
-  //         setTimeout(() => {
-  //           if (color === "orange") {
-  //             $(".time").css({
-  //               color: "rgb(8, 187, 8)",
-  //             });
-  //             color = "green";
-  //           }
-  //         }, 1000);
-  //       }
-  //     }
-  //   });
-  //   scrambleController.scramble();
-  // }
 
   return {
     init: () => {
       init();
+    },
+    remove: (that) => {
+      confirmationModal(that);
+    },
+    confirm: (that) => {
+      removeTime(that);
     },
   };
 })(scrambleController);
