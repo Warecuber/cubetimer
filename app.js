@@ -156,7 +156,7 @@ var timer = (() => {
   function confirmationModal(that) {
     newId = that.id.replace("timeId-", "");
     removeValue = document.getElementById(that.id).innerText;
-    $(".modaltitleContent").html("Are you sure you want to delete the time?");
+    $(".modaltitleContent").html("Are you sure you want to delete this time?");
     $(".modalcontent").html(
       `This will permanenetly delete your time of ${removeValue} from the record.`
     );
