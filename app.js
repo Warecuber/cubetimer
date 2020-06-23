@@ -79,7 +79,8 @@ var timer = (() => {
     m = 0,
     running = false,
     color = "white",
-    times;
+    times,
+    timeToGreen;
   var timer;
   var stopwatch = document.querySelector(".time");
 
@@ -200,6 +201,8 @@ var timer = (() => {
           $(".time").css({
             color: "rgb(214, 214, 214)",
           });
+          clearTimeout(timeToGreen);
+          color = "white";
         }
       }
     });
@@ -216,7 +219,7 @@ var timer = (() => {
             });
             color = "orange";
           }
-          setTimeout(() => {
+          timeToGreen = setTimeout(() => {
             if (color === "orange") {
               $(".time").css({
                 color: "rgb(8, 187, 8)",

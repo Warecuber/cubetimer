@@ -58,12 +58,13 @@ body {
 .instructionContainer {
   width: auto;
 }
-.scrambleHistory {
+.scrambleHistory, .stats {
   display: flex;
   align-content: flex-end;
   min-height: 60px;
 }
-.scrambleHistoryContainer {
+.scrambleHistoryContainer, .statsContainer {
+  color:#162521;
   background-color: #C0E0DE;
   height: 100%;
   width: 100%;
