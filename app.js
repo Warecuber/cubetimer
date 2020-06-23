@@ -180,7 +180,8 @@ var timer = (() => {
   }
 
   function addTime() {
-    var lastTime = `${m}.${s}.${ms}`;
+    var lastTime = `${m}.${s}.${ms < 10 ? `0${ms - 1}` : ms - 1}`;
+    console.log(lastTime);
     times.push(lastTime);
     localStorage.setItem("savedTimes", JSON.stringify(times));
     addTimeToDOM(lastTime);
